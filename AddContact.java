@@ -1,5 +1,6 @@
 package addressBookMangementSystem;
 
+
 import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Scanner;
@@ -8,8 +9,7 @@ import java.util.Scanner;
 public class AddContact extends ContactCreate {
     public static AddContact newcontact = new AddContact();
     public static ArrayList<ContactCreate> contact = new ArrayList<>();
-
-    public static void add() {
+    public static void add(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter first name");
         newcontact.setFirstName(scanner.nextLine());
@@ -27,14 +27,53 @@ public class AddContact extends ContactCreate {
         newcontact.setPhoneNumber(scanner.nextLine());
         System.out.println("Enter Email");
         newcontact.setEmail(scanner.nextLine());
-        ContactCreate contactPerson = new ContactCreate(newcontact.getFirstName(), newcontact.getLastName(),
-                newcontact.getAddress(), newcontact.getCity(), newcontact.getState(), newcontact.getZip(),
-                newcontact.getPhoneNumber(), newcontact.getEmail());
+        ContactCreate contactPerson = new ContactCreate(newcontact.getFirstName(),newcontact.getLastName(), newcontact.getAddress(),
+                newcontact.getCity(), newcontact.getState(), newcontact.getZip(), newcontact.getPhoneNumber(),
+                newcontact.getEmail());
         contact.add(contactPerson);
         System.out.println(contact);
     }
 
+    public static void edit(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the first name whose contact to be edited");
+        String name = scanner.nextLine();
+        boolean found=false;
+        ListIterator<ContactCreate> iterator = contact.listIterator();
+        while (iterator.hasNext()){
+            ContactCreate contact= iterator.next();
+            if (name.equals(contact.getFirstName()))
+            {
+                System.out.println("Edit first name");
+                newcontact.setFirstName(scanner.nextLine());
+                System.out.println("Edit last name");
+                newcontact.setLastName(scanner.nextLine());
+                System.out.println("Edit address");
+                newcontact.setAddress(scanner.nextLine());
+                System.out.println("Edit city");
+                newcontact.setCity(scanner.nextLine());
+                System.out.println("Edit state");
+                newcontact.setState(scanner.nextLine());
+                System.out.println("Edit zip code");
+                newcontact.setZip(scanner.nextLine());
+                System.out.println("Edit phone number");
+                newcontact.setPhoneNumber(scanner.nextLine());
+                System.out.println("Edit Email");
+                newcontact.setEmail(scanner.nextLine());
+                iterator.set(new ContactCreate(newcontact.getFirstName(),newcontact.getLastName(),
+                        newcontact.getAddress(), newcontact.getCity(), newcontact.getState(),
+                        newcontact.getZip(), newcontact.getPhoneNumber(),newcontact.getEmail()));
+                found=true;
+            }
 
+        }
+        if (found){
+            System.out.println("record is update");
+            System.out.println(contact);
+        }else {
+            System.out.println("record not found");
+        }
+    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int flag = 0;
@@ -43,13 +82,15 @@ public class AddContact extends ContactCreate {
 
         while (flag != 1) {
             System.out.println("Enter 1 to add contact details");
-
-            System.out.println("Enter 4 to exit");
+            System.out.println("Enter 2 to edit details");
+            System.out.println("Enter 3 to exit");
             choice = scanner.nextInt();
             scanner.nextLine();
             if (choice == 1) {
                 add();
-            }
+            } else if (choice == 2) {
+                edit();
+            } else if (choice == 3)
             {
                 flag = 1;
             }
